@@ -21,4 +21,9 @@ resource "aws_lambda_function" "process_source_chunk" {
 resource "aws_lambda_event_source_mapping" "process_source_chunk_sqs_trigger" {
   event_source_arn = aws_sqs_queue.process_source_chunk.arn
   function_name    = aws_lambda_function.process_source_chunk.arn
+  batch_size       = 1
+
+  scaling_config {
+    maximum_concurrency = 1
+  }
 }
