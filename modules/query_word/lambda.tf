@@ -16,9 +16,10 @@ resource "aws_lambda_function" "query_word" {
 }
 
 resource "aws_lambda_event_source_mapping" "query_word_sqs_trigger" {
-  event_source_arn = aws_sqs_queue.query_word.arn
-  function_name    = aws_lambda_function.query_word.arn
-  batch_size       = 1000
+  event_source_arn                   = aws_sqs_queue.query_word.arn
+  function_name                      = aws_lambda_function.query_word.arn
+  batch_size                         = 1000
+  maximum_batching_window_in_seconds = 60
 
   scaling_config {
     maximum_concurrency = 2
