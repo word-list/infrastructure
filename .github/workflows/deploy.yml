@@ -58,7 +58,7 @@ jobs:
               run: terraform plan -no-color --input=false --out=tfplan
             
             - name: Terraform Apply
-              run: terraform apply "tfplan" --auto-approve --input=false
+              run: terraform apply --auto-approve --input=false "tfplan"
 
             - name: Update DNS
               env:
