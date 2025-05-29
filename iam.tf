@@ -69,6 +69,30 @@ resource "aws_iam_policy" "words_table" {
   EOF
 }
 
+resource "aws_iam_policy" "batches_table" {
+  name = "${var.project}-${var.environment}-batches-table-policy"
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "dynamodb:PutItem",
+          "dynamodb:GetItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:BatchGetItem",
+          "dynamodb:Scan"
+        ],
+        "Resource": "${aws_dynamodb_table.batches.arn}"
+      }
+    ]
+  }
+  EOF
+}
+
 resource "aws_iam_policy" "deployment_artifacts_bucket" {
   name = "${var.project}-${var.environment}-deployment-artifacts-bucket-policy"
 

@@ -41,8 +41,12 @@ module "process_source_chunk" {
 }
 
 module "query_word" {
-  source      = "./modules/query_word"
-  project     = var.project
-  environment = var.environment
-  region      = var.region
+  source                   = "./modules/query_word"
+  project                  = var.project
+  environment              = var.environment
+  region                   = var.region
+  words_table_name         = aws_dynamodb_table.words.name
+  words_table_policy_arn   = aws_iam_policy.words_table.arn
+  batches_table_name       = aws_dynamodb_table.batches.name
+  batches_table_policy_arn = aws_iam_policy.batches_table.arn
 }
