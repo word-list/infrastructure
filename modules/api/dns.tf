@@ -1,5 +1,5 @@
 resource "aws_route53_zone" "domain" {
-  name = var.domain
+  name = local.subdomain
 }
 
 resource "aws_route53_record" "api_alias" {
