@@ -24,6 +24,6 @@ resource "aws_lambda_event_source_mapping" "process_source_chunk_sqs_trigger" {
   batch_size       = 1
 
   scaling_config {
-    maximum_concurrency = 1
+    maximum_concurrency = 2
   }
 }
