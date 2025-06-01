@@ -22,7 +22,7 @@ variable "source_chunks_bucket_name" {
   type = string
 }
 
-variable "query_word_queue_policy_arn" {
+variable "query_words_queue_policy_arn" {
   type = string
 }
 
@@ -38,6 +38,6 @@ variable "words_table_name" {
   type = string
 }
 
-variable "query_word_queue_url" {
+variable "query_words_queue_url" {
   type = string
 }

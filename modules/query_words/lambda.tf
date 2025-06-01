@@ -1,8 +1,8 @@
-resource "aws_lambda_function" "query_word" {
-  function_name    = "${var.project}-${var.environment}-query-word"
-  handler          = "WordList.Processing.QueryWord"
+resource "aws_lambda_function" "query_words" {
+  function_name    = "${var.project}-${var.environment}-query-words"
+  handler          = "WordList.Processing.QueryWords"
   runtime          = "dotnet8"
-  role             = aws_iam_role.query_word.arn
+  role             = aws_iam_role.query_words.arn
   architectures    = ["arm64"]
   filename         = "placeholder.zip"
   source_code_hash = filebase64sha256("placeholder.zip")
@@ -15,9 +15,9 @@ resource "aws_lambda_function" "query_word" {
   }
 }
 
-resource "aws_lambda_event_source_mapping" "query_word_sqs_trigger" {
-  event_source_arn                   = aws_sqs_queue.query_word.arn
-  function_name                      = aws_lambda_function.query_word.arn
+resource "aws_lambda_event_source_mapping" "query_words_sqs_trigger" {
+  event_source_arn                   = aws_sqs_queue.query_words.arn
+  function_name                      = aws_lambda_function.query_words.arn
   batch_size                         = 1000
   maximum_batching_window_in_seconds = 60
 

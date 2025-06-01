@@ -12,7 +12,7 @@ resource "aws_lambda_function" "process_source_chunk" {
       SOURCE_CHUNKS_TABLE_NAME     = var.source_chunks_table_name
       SOURCE_CHUNKS_BUCKET_NAME    = var.source_chunks_bucket_name
       WORDS_TABLE_NAME             = var.words_table_name
-      QUERY_WORD_QUEUE_URL         = var.query_word_queue_url
+      query_words_QUEUE_URL        = var.query_words_queue_url
       DEBUG_OUTGOING_MESSAGE_LIMIT = "5"
     }
   }

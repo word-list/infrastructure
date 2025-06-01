@@ -34,14 +34,14 @@ module "process_source_chunk" {
   source_chunks_bucket_policy_arn = aws_iam_policy.source_chunks_bucket.arn
   source_chunks_table_name        = aws_dynamodb_table.source_chunks.name
   source_chunks_table_policy_arn  = aws_iam_policy.source_chunks_table.arn
-  query_word_queue_policy_arn     = module.query_word.query_word_queue_policy_arn
-  query_word_queue_url            = module.query_word.query_word_queue_url
+  query_words_queue_policy_arn    = module.query_words.query_words_queue_policy_arn
+  query_words_queue_url           = module.query_words.query_words_queue_url
   words_table_name                = aws_dynamodb_table.words.name
   words_table_policy_arn          = aws_iam_policy.words_table.arn
 }
 
-module "query_word" {
-  source                   = "./modules/query_word"
+module "query_words" {
+  source                   = "./modules/query_words"
   project                  = var.project
   environment              = var.environment
   region                   = var.region
