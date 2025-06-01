@@ -25,3 +25,11 @@ variable "batches_table_name" {
 variable "batches_table_policy_arn" {
   type = string
 }
+
+variable "prompts_table_name" {
+  type = string
+}
+
+variable "prompts_table_policy_arn" {
+  type = string
+}

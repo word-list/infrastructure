@@ -49,3 +49,22 @@ resource "aws_dynamodb_table" "batches" {
     type = "S"
   }
 }
+
+resource "aws_dynamodb_table" "prompts" {
+  name           = "${var.project}-${var.environment}-prompts-table"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 10
+  write_capacity = 10
+  hash_key       = "batch_id"
+  range_key      = "prompt_id"
+
+  attribute {
+    name = "batch_id"
+    type = "S"
+  }
+
+  attribute {
+    name = "prompt_id"
+    type = "S"
+  }
+}

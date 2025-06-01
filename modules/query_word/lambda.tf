@@ -9,8 +9,8 @@ resource "aws_lambda_function" "query_word" {
   timeout          = 60
   environment {
     variables = {
-      WORDS_TABLE_NAME   = var.words_table_name
       BATCHES_TABLE_NAME = var.batches_table_name
+      PROMPTS_TABLE_NAME = var.prompts_table_name
     }
   }
 }

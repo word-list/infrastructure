@@ -93,6 +93,31 @@ resource "aws_iam_policy" "batches_table" {
   EOF
 }
 
+resource "aws_iam_policy" "prompts_table" {
+  name = "${var.project}-${var.environment}-prompts-table-policy"
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "dynamodb:PutItem",
+          "dynamodb:GetItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:BatchGetItem",
+          "dynamodb:BatchWriteItem",
+          "dynamodb:Scan"
+        ],
+        "Resource": "${aws_dynamodb_table.prompts.arn}"
+      }
+    ]
+  }
+  EOF
+}
+
 resource "aws_iam_policy" "deployment_artifacts_bucket" {
   name = "${var.project}-${var.environment}-deployment-artifacts-bucket-policy"
 

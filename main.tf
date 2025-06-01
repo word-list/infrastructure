@@ -49,4 +49,6 @@ module "query_word" {
   words_table_policy_arn   = aws_iam_policy.words_table.arn
   batches_table_name       = aws_dynamodb_table.batches.name
   batches_table_policy_arn = aws_iam_policy.batches_table.arn
+  prompts_table_name       = aws_dynamodb_table.prompts.name
+  prompts_table_policy_arn = aws_iam_policy.prompts_table.arn
 }
