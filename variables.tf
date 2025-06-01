@@ -22,6 +22,12 @@ variable "domain" {
   nullable    = false
 }
 
+variable "openai_api_key" {
+  description = "OpenAI API Key"
+  type        = string
+  nullable    = false
+}
+
 locals {
   base_domain = var.domain
   subdomain   = var.environment == "production" ? local.base_domain : "${var.environment}.${local.base_domain}"

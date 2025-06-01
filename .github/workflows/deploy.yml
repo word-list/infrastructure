@@ -21,6 +21,7 @@ jobs:
             TF_VAR_domain: ${{ vars.BASE_DOMAIN }}
             TF_VAR_project: ${{ vars.PROJECT }}
             TF_VAR_region: ${{ vars.REGION }}
+            TF_VAR_openai_api_key: ${{ vars.OPENAI_API_KEY }}
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v4
