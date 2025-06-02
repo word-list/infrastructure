@@ -12,6 +12,7 @@ resource "aws_lambda_function" "query_words" {
       BATCHES_TABLE_NAME = var.batches_table_name
       PROMPTS_TABLE_NAME = var.prompts_table_name
       OPENAI_API_KEY     = var.openai_api_key
+      OPENAI_MODEL_NAME  = var.openai_model_name
     }
   }
 }

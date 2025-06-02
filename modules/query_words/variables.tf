@@ -37,3 +37,7 @@ variable "prompts_table_policy_arn" {
 variable "openai_api_key" {
   type = string
 }
+
+variable "openai_model_name" {
+  type = string
+}
