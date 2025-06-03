@@ -48,6 +48,17 @@ resource "aws_dynamodb_table" "batches" {
     name = "id"
     type = "S"
   }
+
+  attribute {
+    name = "status"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "StatusIndex"
+    hash_key        = "status"
+    projection_type = "ALL"
+  }
 }
 
 resource "aws_dynamodb_table" "prompts" {
