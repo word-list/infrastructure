@@ -27,7 +27,7 @@ resource "aws_dynamodb_table" "source_chunks" {
 resource "aws_dynamodb_table" "words" {
   name           = "${var.project}-${var.environment}-words-table"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 15
+  read_capacity  = 10
   write_capacity = 1
   hash_key       = "id"
 
@@ -66,8 +66,8 @@ resource "aws_dynamodb_table" "batches" {
 resource "aws_dynamodb_table" "prompts" {
   name           = "${var.project}-${var.environment}-prompts-table"
   billing_mode   = "PROVISIONED"
-  read_capacity  = 10
-  write_capacity = 10
+  read_capacity  = 5
+  write_capacity = 5
   hash_key       = "batch_id"
   range_key      = "prompt_id"
 
