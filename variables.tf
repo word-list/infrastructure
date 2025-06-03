@@ -34,6 +34,12 @@ variable "openai_model_name" {
   nullable    = false
 }
 
+variable "batch_poll_schedule" {
+  description = "Schedule for batch polling in EventBridge format, e.g. rate(30 minutes)"
+  type        = string
+  default     = "rate(30 minutes)"
+}
+
 locals {
   base_domain = var.domain
   subdomain   = var.environment == "production" ? local.base_domain : "${var.environment}.${local.base_domain}"

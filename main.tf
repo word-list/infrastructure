@@ -54,3 +54,19 @@ module "query_words" {
   openai_api_key           = var.openai_api_key
   openai_model_name        = var.openai_model_name
 }
+
+module "check_batches" {
+  source                   = "./modules/check_batches"
+  project                  = var.project
+  environment              = var.environment
+  region                   = var.region
+  words_table_name         = aws_dynamodb_table.words.name
+  words_table_policy_arn   = aws_iam_policy.words_table.arn
+  batches_table_name       = aws_dynamodb_table.batches.name
+  batches_table_policy_arn = aws_iam_policy.batches_table.arn
+  prompts_table_name       = aws_dynamodb_table.prompts.name
+  prompts_table_policy_arn = aws_iam_policy.prompts_table.arn
+  openai_api_key           = var.openai_api_key
+  openai_model_name        = var.openai_model_name
+  batch_poll_schedule      = var.batch_poll_schedule
+}
