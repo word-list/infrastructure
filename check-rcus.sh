@@ -18,6 +18,7 @@ fi
 echo "Total Read Capacity Units (RCUs): $READ_TOTAL $READ_WARNING"
 echo "Total Write Capacity Units (WCUs): $WRITE_TOTAL $WRITE_WARNING"
 
-if [[ -n "$READ_TOTAL" ]] || [[ -n "$WRITE_TOTAL" ]]; then
+if [[ -n "$READ_WARNING" ]] || [[ -n "$WRITE_WARNING" ]]; then
+    echo "Exiting with error"
     exit 1
 fi
