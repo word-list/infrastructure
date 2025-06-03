@@ -9,10 +9,11 @@ resource "aws_lambda_function" "check_batches" {
   timeout          = 60
   environment {
     variables = {
-      BATCHES_TABLE_NAME = var.batches_table_name
-      PROMPTS_TABLE_NAME = var.prompts_table_name
-      OPENAI_API_KEY     = var.openai_api_key
-      OPENAI_MODEL_NAME  = var.openai_model_name
+      BATCHES_TABLE_NAME     = var.batches_table_name
+      PROMPTS_TABLE_NAME     = var.prompts_table_name
+      OPENAI_API_KEY         = var.openai_api_key
+      OPENAI_MODEL_NAME      = var.openai_model_name
+      UPDATE_BATCH_QUEUE_URL = var.update_batch_queue_url
     }
   }
 }
