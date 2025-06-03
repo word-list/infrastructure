@@ -45,3 +45,11 @@ variable "openai_model_name" {
 variable "batch_poll_schedule" {
   type = string
 }
+
+variable "update_batch_queue_url" {
+  type = string
+}
+
+variable "update_batch_queue_policy_arn" {
+  type = string
+}
