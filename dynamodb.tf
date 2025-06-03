@@ -58,6 +58,8 @@ resource "aws_dynamodb_table" "batches" {
     name            = "StatusIndex"
     hash_key        = "status"
     projection_type = "ALL"
+    read_capacity   = 5
+    write_capacity  = 1
   }
 }
 
