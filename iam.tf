@@ -87,7 +87,9 @@ resource "aws_iam_policy" "batches_table" {
           "dynamodb:Scan",
           "dynamodb:Query"
         ],
-        "Resource": "${aws_dynamodb_table.batches.arn}"
+        "Resource": [
+          "${aws_dynamodb_table.batches.arn}",
+          "${aws_dynamodb_table.batches.arn}/index/StatusIndex"
       }
     ]
   }
