@@ -90,6 +90,7 @@ resource "aws_iam_policy" "batches_table" {
         "Resource": [
           "${aws_dynamodb_table.batches.arn}",
           "${aws_dynamodb_table.batches.arn}/index/StatusIndex"
+        ]
       }
     ]
   }
