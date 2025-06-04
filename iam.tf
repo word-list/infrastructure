@@ -84,7 +84,8 @@ resource "aws_iam_policy" "batches_table" {
           "dynamodb:UpdateItem",
           "dynamodb:DeleteItem",
           "dynamodb:BatchGetItem",
-          "dynamodb:Scan"
+          "dynamodb:Scan",
+          "dynamodb:Query"
         ],
         "Resource": "${aws_dynamodb_table.batches.arn}"
       }
