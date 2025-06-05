@@ -38,6 +38,7 @@ resource "aws_iam_role_policy_attachment" "update_batch" {
     prompts_table      = var.prompts_table_policy_arn
     update_words_queue = var.update_words_queue_policy_arn
     query_words_queue  = var.query_words_queue_policy_arn
+    update_batch_queue = aws_iam_policy.update_batch_queue.arn
     basic_logging      = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   }
 
