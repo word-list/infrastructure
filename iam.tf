@@ -113,7 +113,8 @@ resource "aws_iam_policy" "prompts_table" {
           "dynamodb:DeleteItem",
           "dynamodb:BatchGetItem",
           "dynamodb:BatchWriteItem",
-          "dynamodb:Scan"
+          "dynamodb:Scan",
+          "dynamodb:Query"
         ],
         "Resource": "${aws_dynamodb_table.prompts.arn}"
       }
