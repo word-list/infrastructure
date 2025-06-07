@@ -1,3 +1,14 @@
+terraform {
+  required_providers {
+    cockroach = {
+      source = "cockroachdb/cockroach"
+    }
+    random = {
+      source = "hashicorp/random"
+    }
+  }
+}
+
 provider "aws" {
   alias = "application"
 }
@@ -12,4 +23,7 @@ provider "aws" {
       },
     )
   }
+}
+
+provider "cockroach" {
 }

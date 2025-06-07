@@ -9,3 +9,8 @@ variable "environment" {
 variable "region" {
   type = string
 }
+
+variable "db_connection_string" {
+  type      = string
+  sensitive = true
+}

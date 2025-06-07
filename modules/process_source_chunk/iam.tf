@@ -36,7 +36,6 @@ resource "aws_iam_role_policy_attachment" "process_source_chunk" {
   for_each = {
     process_source_chunk_queue = aws_iam_policy.process_source_chunk_queue.arn
     query_words_queue          = var.query_words_queue_policy_arn
-    words_table                = var.words_table_policy_arn
     source_chunks_bucket       = var.source_chunks_bucket_policy_arn
     source_chunks_table        = var.source_chunks_table_policy_arn
     basic_logging              = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"

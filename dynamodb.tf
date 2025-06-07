@@ -24,19 +24,6 @@ resource "aws_dynamodb_table" "source_chunks" {
   }
 }
 
-resource "aws_dynamodb_table" "words" {
-  name           = "${var.project}-${var.environment}-words-table"
-  billing_mode   = "PROVISIONED"
-  read_capacity  = 10
-  write_capacity = 1
-  hash_key       = "id"
-
-  attribute {
-    name = "id"
-    type = "S"
-  }
-}
-
 resource "aws_dynamodb_table" "batches" {
   name           = "${var.project}-${var.environment}-batches-table"
   billing_mode   = "PROVISIONED"

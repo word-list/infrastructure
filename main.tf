@@ -36,8 +36,7 @@ module "process_source_chunk" {
   source_chunks_table_policy_arn  = aws_iam_policy.source_chunks_table.arn
   query_words_queue_policy_arn    = module.query_words.query_words_queue_policy_arn
   query_words_queue_url           = module.query_words.query_words_queue_url
-  words_table_name                = aws_dynamodb_table.words.name
-  words_table_policy_arn          = aws_iam_policy.words_table.arn
+  db_connection_string            = data.cockroach_connection_string.app_user.connection_string
 }
 
 module "query_words" {
@@ -45,8 +44,6 @@ module "query_words" {
   project                  = var.project
   environment              = var.environment
   region                   = var.region
-  words_table_name         = aws_dynamodb_table.words.name
-  words_table_policy_arn   = aws_iam_policy.words_table.arn
   batches_table_name       = aws_dynamodb_table.batches.name
   batches_table_policy_arn = aws_iam_policy.batches_table.arn
   prompts_table_name       = aws_dynamodb_table.prompts.name
@@ -60,8 +57,6 @@ module "check_batches" {
   project                       = var.project
   environment                   = var.environment
   region                        = var.region
-  words_table_name              = aws_dynamodb_table.words.name
-  words_table_policy_arn        = aws_iam_policy.words_table.arn
   batches_table_name            = aws_dynamodb_table.batches.name
   batches_table_policy_arn      = aws_iam_policy.batches_table.arn
   prompts_table_name            = aws_dynamodb_table.prompts.name
@@ -90,8 +85,9 @@ module "update_batch" {
 }
 
 module "update_words" {
-  source      = "./modules/update_words"
-  project     = var.project
-  environment = var.environment
-  region      = var.region
+  source               = "./modules/update_words"
+  project              = var.project
+  environment          = var.environment
+  region               = var.region
+  db_connection_string = data.cockroach_connection_string.app_user.connection_string
 }

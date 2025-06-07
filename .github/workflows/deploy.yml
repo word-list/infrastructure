@@ -23,6 +23,7 @@ jobs:
             TF_VAR_region: ${{ vars.REGION }}
             TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
             TF_VAR_openai_model_name: ${{ vars.OPENAI_MODEL_NAME }}
+            COCKROACH_API_KEY: ${{ secrets.COCKROACH_API_KEY }}
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v4
@@ -69,5 +70,5 @@ jobs:
               env:
                 CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
                 ZONE_ID: ${{ secrets.ZONE_ID }}
-                DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
+                DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}                
               run: ./update-dns.sh
