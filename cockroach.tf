@@ -5,7 +5,7 @@ resource "cockroach_cluster" "default" {
   serverless = {
     usage_limits = {
       request_unit_limit = 50000000
-      storage_mib_limit  = 10000000
+      storage_mib_limit  = 10000
     }
   }
   regions           = [{ name = var.region }]
