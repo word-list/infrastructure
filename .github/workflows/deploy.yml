@@ -12,7 +12,7 @@ jobs:
         environment: staging
         strategy:
             matrix:
-                environment: [staging]
+                environment: [staging]      
         env:
             ENVIRONMENT: ${{ matrix.environment }}
             PROJECT: ${{ vars.PROJECT }}
@@ -24,6 +24,10 @@ jobs:
             TF_VAR_openai_api_key: ${{ secrets.OPENAI_API_KEY }}
             TF_VAR_openai_model_name: ${{ vars.OPENAI_MODEL_NAME }}
             COCKROACH_API_KEY: ${{ secrets.COCKROACH_API_KEY }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            GH_TOKEN: ${{ secrets.SQL_WRITE_TOKEN }}
+            SQL_REPO_NAME: ${{ vars.SQL_REPO_NAME }}
+            SQL_SECRET_NAME: ${{ vars.SQL_SECRET_NAME }}
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v4
@@ -72,3 +76,7 @@ jobs:
                 ZONE_ID: ${{ secrets.ZONE_ID }}
                 DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}                
               run: ./update-dns.sh
+
+            - name: Update Connection String
+              run: ./update-lib-sql-connection-string.sh ${{ secrets.GITHUB_TOKEN }}
+              
