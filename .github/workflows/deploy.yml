@@ -78,5 +78,5 @@ jobs:
               run: ./update-dns.sh
 
             - name: Update Connection String
-              run: ./update-lib-sql-connection-string.sh ${{ secrets.GITHUB_TOKEN }}
+              run: ./update-lib-sql-connection-string.sh
               
