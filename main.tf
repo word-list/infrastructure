@@ -7,6 +7,7 @@ module "api" {
   sources_table_name                     = aws_dynamodb_table.sources.name
   sources_table_policy_arn               = aws_iam_policy.sources_table.arn
   deployment_artifacts_bucket_policy_arn = aws_iam_policy.deployment_artifacts_bucket.arn
+  db_connection_string                   = data.cockroach_connection_string.app_user.connection_string
 }
 
 module "upload_source_chunks" {

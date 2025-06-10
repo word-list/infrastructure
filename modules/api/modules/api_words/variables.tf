@@ -16,15 +16,19 @@ variable "domain" {
   nullable    = false
 }
 
-variable "sources_table_name" {
-  type = string
-}
-
-variable "sources_table_policy_arn" {
-  type = string
-}
-
 variable "deployment_artifacts_bucket_policy_arn" {
+  type = string
+}
+
+variable "api_gateway_execution_arn" {
+  type = string
+}
+
+variable "api_id" {
+  type = string
+}
+
+variable "authorizer_id" {
   type = string
 }
 
