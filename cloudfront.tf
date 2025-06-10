@@ -20,7 +20,7 @@ resource "aws_cloudfront_distribution" "cdn" {
   }
 
   origin {
-    domain_name = replace(module.api.invoke_url, "https://", "")
+    domain_name = module.api.domain_name
     origin_id   = "API-Gateway"
     custom_origin_config {
       http_port              = 80
