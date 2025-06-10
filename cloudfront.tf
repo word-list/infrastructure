@@ -45,6 +45,7 @@ resource "aws_cloudfront_distribution" "cdn" {
   origin {
     domain_name = module.api.domain_name
     origin_id   = "API-Gateway"
+    origin_path = "/${var.environment}"
     custom_origin_config {
       http_port              = 80
       https_port             = 443
