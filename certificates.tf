@@ -1,4 +1,5 @@
 resource "aws_acm_certificate" "wordlist" {
+  provider          = aws.us-east-1
   domain_name       = local.subdomain
   validation_method = "DNS"
 
