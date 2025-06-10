@@ -1,14 +1,17 @@
 resource "aws_cloudfront_distribution" "cdn" {
   enabled = true
+  aliases = ["staging.wordlist.gaul.tech"]
+
+  viewer_certificate {
+    acm_certificate_arn      = aws_acm_certificate.wordlist.arn
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
+  }
 
   restrictions {
     geo_restriction {
       restriction_type = "none"
     }
-  }
-
-  viewer_certificate {
-    cloudfront_default_certificate = true
   }
 
   origin {
