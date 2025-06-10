@@ -13,9 +13,3 @@ resource "aws_route53_record" "wordlist_alias" {
     evaluate_target_health = false
   }
 }
-
-resource "aws_acm_certificate_validation" "wordlist_cert" {
-  provider                = aws.us-east-1
-  certificate_arn         = aws_acm_certificate.wordlist.arn
-  validation_record_fqdns = [for record in aws_route53_record.wordlist_cert_validation : record.fqdn]
-}
