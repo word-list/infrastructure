@@ -9,8 +9,6 @@ resource "aws_acm_certificate" "wordlist" {
 }
 
 resource "aws_route53_record" "wordlist_cert_validation" {
-  provider = aws.us-east-1
-
   for_each = {
     for dvo in aws_acm_certificate.wordlist.domain_validation_options :
     dvo.domain_name => {
