@@ -138,3 +138,20 @@ resource "aws_iam_policy" "source_chunks_bucket" {
     }]
   })
 }
+
+resource "aws_iam_policy" "frontend_bucket" {
+  name = "${var.project}-${var.environment}-frontend-bucket-policy"
+
+  policy = jsonencode({
+    "Version" = "2012-10-17"
+    Statement = [{
+      "Effect"    = "Allow",
+      "Principal" = { "AWS" = aws_cloudfront_origin_access_identity.oai.iam_arn },
+      "Action"    = "s3:GetObject",
+      "Resource" = [
+        aws_s3_bucket.frontend.arn,
+        "${aws_s3_bucket.frontend.arn}/*"
+      ]
+    }]
+  })
+}

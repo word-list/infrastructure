@@ -75,3 +75,7 @@ resource "aws_cloudfront_distribution" "cdn" {
     cache_policy_id = aws_cloudfront_cache_policy.default.id
   }
 }
+
+resource "aws_cloudfront_origin_access_identity" "oai" {
+  comment = "Access identity for CloudFront"
+}
