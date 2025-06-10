@@ -1,3 +1,26 @@
+resource "aws_cloudfront_cache_policy" "default" {
+  name        = "${var.project}-${var.environment}-deafult-cache-policy"
+  comment     = "Default cache policy"
+  default_ttl = 3600
+  max_ttl     = 86400
+  min_ttl     = 0
+
+  parameters_in_cache_key_and_forwarded_to_origin {
+    enable_accept_encoding_gzip   = true
+    enable_accept_encoding_brotli = true
+
+    headers_config {
+      header_behavior = "none"
+    }
+    query_strings_config {
+      query_string_behavior = "all"
+    }
+    cookies_config {
+      cookie_behavior = "none"
+    }
+  }
+}
+
 resource "aws_cloudfront_distribution" "cdn" {
   enabled = true
   aliases = ["staging.wordlist.gaul.tech"]
@@ -35,6 +58,8 @@ resource "aws_cloudfront_distribution" "cdn" {
     cached_methods         = ["GET", "HEAD"]
     target_origin_id       = "S3-Frontend"
     viewer_protocol_policy = "redirect-to-https"
+
+    cache_policy_id = aws_cloudfront_cache_policy.default.id
   }
 
   ordered_cache_behavior {
@@ -43,5 +68,7 @@ resource "aws_cloudfront_distribution" "cdn" {
     path_pattern           = "/api/*"
     target_origin_id       = "API-Gateway"
     viewer_protocol_policy = "https-only"
+
+    cache_policy_id = aws_cloudfront_cache_policy.default.id
   }
 }
