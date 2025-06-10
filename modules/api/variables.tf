@@ -33,6 +33,10 @@ variable "db_connection_string" {
   sensitive = true
 }
 
+variable "wordlist_certificate_arn" {
+  type = string
+}
+
 locals {
   base_domain = var.domain
   subdomain   = var.environment == "production" ? local.base_domain : "${var.environment}.${local.base_domain}"

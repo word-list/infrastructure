@@ -1,4 +1,3 @@
-output "hosted_zone_ns_records" {
-  value       = aws_route53_zone.domain.name_servers
-  description = "The nameservers for the hosted zone"
+output "invoke_url" {
+  value = aws_apigatewayv2_stage.default.invoke_url
 }

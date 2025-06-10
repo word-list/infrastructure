@@ -1,4 +1,4 @@
-resource "aws_acm_certificate" "api" {
+resource "aws_acm_certificate" "wordlist" {
   domain_name       = local.subdomain
   validation_method = "DNS"
 
@@ -7,9 +7,9 @@ resource "aws_acm_certificate" "api" {
   }
 }
 
-resource "aws_route53_record" "api_cert_validation" {
+resource "aws_route53_record" "wordlist_cert_validation" {
   for_each = {
-    for dvo in aws_acm_certificate.api.domain_validation_options :
+    for dvo in aws_acm_certificate.wordlist.domain_validation_options :
     dvo.domain_name => {
       name  = dvo.resource_record_name
       type  = dvo.resource_record_type
