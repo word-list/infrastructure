@@ -54,8 +54,8 @@ resource "aws_cloudfront_distribution" "cdn" {
   }
 
   default_cache_behavior {
-    allowed_methods        = ["GET", "HEAD", "OPTIONS"]
-    cached_methods         = ["GET", "HEAD"]
+    allowed_methods        = ["HEAD", "GET", "OPTIONS"]
+    cached_methods         = ["HEAD", "GET"]
     target_origin_id       = "S3-Frontend"
     viewer_protocol_policy = "redirect-to-https"
 
@@ -63,8 +63,8 @@ resource "aws_cloudfront_distribution" "cdn" {
   }
 
   ordered_cache_behavior {
-    allowed_methods        = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "DELETE"]
-    cached_methods         = ["GET", "HEAD"]
+    allowed_methods        = ["HEAD", "DELETE", "POST", "GET", "OPTIONS", "PUT", "PATCH"]
+    cached_methods         = ["HEAD", "GET"]
     path_pattern           = "/api/*"
     target_origin_id       = "API-Gateway"
     viewer_protocol_policy = "https-only"
