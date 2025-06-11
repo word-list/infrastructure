@@ -21,6 +21,33 @@ resource "aws_cloudfront_cache_policy" "default" {
   }
 }
 
+resource "aws_cloudfront_cache_policy" "no_cache" {
+  name        = "${var.project}-${var.environment}-no-cache-policy"
+  comment     = "No-cache policy"
+  default_ttl = 0
+  max_ttl     = 0
+  min_ttl     = 0
+
+  parameters_in_cache_key_and_forwarded_to_origin {
+    enable_accept_encoding_gzip = true
+
+    headers_config {
+      header_behavior = "whitelist"
+      headers {
+        items = ["Authorization", "Cache-Control", "Pragma"]
+      }
+    }
+
+    query_strings_config {
+      query_string_behavior = "all"
+    }
+
+    cookies_config {
+      cookie_behavior = "none"
+    }
+  }
+}
+
 resource "aws_cloudfront_distribution" "cdn" {
   enabled = true
   aliases = ["staging.wordlist.gaul.tech"]
@@ -76,7 +103,7 @@ resource "aws_cloudfront_distribution" "cdn" {
     target_origin_id       = "API-Gateway"
     viewer_protocol_policy = "https-only"
 
-    cache_policy_id = aws_cloudfront_cache_policy.default.id
+    cache_policy_id = aws_cloudfront_cache_policy.no_cache.id
   }
 }
 
