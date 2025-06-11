@@ -21,22 +21,6 @@ resource "aws_cloudfront_cache_policy" "default" {
   }
 }
 
-resource "aws_cloudfront_origin_request_policy" "no_cache" {
-  name = "${var.project}-${var.environment}-no-cache-policy"
-
-  headers_config {
-    header_behavior = "allViewer"
-  }
-
-  query_strings_config {
-    query_string_behavior = "all"
-  }
-
-  cookies_config {
-    cookie_behavior = "none"
-  }
-}
-
 resource "aws_cloudfront_distribution" "cdn" {
   enabled = true
   aliases = ["staging.wordlist.gaul.tech"]
@@ -92,7 +76,8 @@ resource "aws_cloudfront_distribution" "cdn" {
     target_origin_id       = "API-Gateway"
     viewer_protocol_policy = "https-only"
 
-    origin_request_policy_id = aws_cloudfront_origin_request_policy.no_cache.id
+    cache_policy_id          = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad" # CachingDisabled: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-managed-cache-policies.html
+    origin_request_policy_id = "216adef6-5c7f-47e4-b989-5492eafa07d3" # AllViewer: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-managed-origin-request-policies.html
   }
 }
 
