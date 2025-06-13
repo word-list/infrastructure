@@ -15,7 +15,8 @@
 			"extensions": [
 				"amazonwebservices.aws-toolkit-vscode",
 				"hashicorp.terraform",
-				"github.vscode-github-actions"
+				"github.vscode-github-actions",
+				"mermaidchart.vscode-mermaid-chart"
 			]
 		}
 	}
