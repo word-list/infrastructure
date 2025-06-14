@@ -1,3 +1,4 @@
 .terraform
 init.log
 placeholder-lambda/bootstrap
+tfplan
