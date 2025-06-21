@@ -84,20 +84,18 @@ resource "aws_dynamodb_table" "word_attributes" {
 
 resource "local_file" "word_attributes" {
   content = jsonencode({
-    RequestItems = {
-      word_attributes = [
-        for attr in var.word_attributes : {
-          PutRequest = {
-            Item = {
-              name        = { S = attr.name }
-              display     = { S = attr.display }
-              description = { S = attr.description }
-              prompt      = { S = attr.prompt }
-            }
+    word_attributes = [
+      for attr in var.word_attributes : {
+        PutRequest = {
+          Item = {
+            name        = { S = attr.name }
+            display     = { S = attr.display }
+            description = { S = attr.description }
+            prompt      = { S = attr.prompt }
           }
         }
-      ]
-    }
+      }
+    ]
   })
   filename = "${path.module}/word_attributes.json"
 }
