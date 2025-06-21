@@ -41,7 +41,7 @@ data "cockroach_connection_string" "app_user" {
 
 locals {
   alter_statements = join("\n ", [
-    for attr in var.word_attributes :
+    for attr in local.word_attributes :
     "ALTER TABLE ${var.words_table_name} ADD COLUMN IF NOT EXISTS ${attr.name} INT;"
   ])
 }
