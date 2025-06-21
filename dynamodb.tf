@@ -103,6 +103,10 @@ resource "local_file" "word_attributes" {
 }
 
 resource "null_resource" "load_word_attributes" {
+  triggers = {
+    file_sha = filesha256(local_file.word_attributes.filename)
+  }
+
   provisioner "local-exec" {
     command = "aws dynamodb batch-write-item --request-items file://word_attributes.json --region ${var.region}"
   }
