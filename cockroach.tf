@@ -62,6 +62,7 @@ resource "null_resource" "apply_words_schema" {
     command = <<EOT
 psql \
   -h ${data.cockroach_connection_string.app_user.connection_params.host} \
+  -p 26257 \
   -d ${cockroach_database.default.name} \
   -U ${data.cockroach_connection_string.app_user.sql_user} \
   -f ${path.module}/words_table.sql
