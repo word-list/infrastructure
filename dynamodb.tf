@@ -68,3 +68,44 @@ resource "aws_dynamodb_table" "prompts" {
     type = "S"
   }
 }
+
+resource "aws_dynamodb_table" "word_attributes" {
+  name           = "${var.project}-${var.environment}-word-attributes-table"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 2
+  write_capacity = 1
+  hash_key       = "name"
+
+  attribute {
+    name = "name"
+    type = "S"
+  }
+}
+
+resource "local_file" "word_attributes" {
+  content = jsonencode({
+    RequestItems = {
+      word_attributes = [
+        for attr in var.word_attributes : {
+          PutRequest = {
+            Item = {
+              name        = { S = attr.name }
+              display     = { S = attr.display }
+              description = { S = attr.description }
+              prompt      = { S = attr.prompt }
+            }
+          }
+        }
+      ]
+    }
+  })
+  filename = "${path.module}/word_attributes.json"
+}
+
+resource "null_resource" "seed_dynamodb" {
+  provisioner "local-exec" {
+    command = "aws dynamodb batch-write-item --request-items file://word_attributes.json --region ${var.region}"
+  }
+
+  depends_on = [local_file.word_attributes, aws_dynamodb_table.word_attributes]
+}

@@ -38,3 +38,38 @@ data "cockroach_connection_string" "app_user" {
   password = random_password.db_user_password.result
   database = cockroach_database.default.name
 }
+
+locals {
+  alter_statements = join("\n ", [
+    for attr in var.word_attributes :
+    "ALTER TABLE ${var.words_table_name} ADD COLUMN IF NOT EXISTS ${attr.name} INT;"
+  ])
+}
+resource "local_file" "words_table" {
+  content  = <<-EOT
+    CREATE TABLE IF NOT EXISTS ${var.words_table_name} (
+      text TEXT PRIMARY KEY
+    );
+    ${local.alter_statements}
+  EOT
+  filename = "${path.module}/words_table.sql"
+
+  depends_on = [cockroach_cluster.default]
+}
+
+resource "null_resource" "apply_words_schema" {
+  provisioner "local-exec" {
+    command = <<EOT
+psql \
+  -h ${data.cockroach_connection_string.app_user.connection_params.host} \
+  -d ${cockroach_database.default.name} \
+  -U ${data.cockroach_connection_string.app_user.sql_user} \
+  -f ${path.module}/words_table.sql
+EOT
+    environment = {
+      PGPASSWORD = data.cockroach_connection_string.app_user.password
+    }
+  }
+
+  depends_on = [local_file.words_table, data.cockroach_connection_string.app_user]
+}

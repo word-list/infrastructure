@@ -33,3 +33,11 @@ variable "openai_api_key" {
 variable "openai_model_name" {
   type = string
 }
+
+variable "word_attributes_table_name" {
+  type = string
+}
+
+variable "word_attributes_table_policy_arn" {
+  type = string
+}

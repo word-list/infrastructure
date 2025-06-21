@@ -1,0 +1,134 @@
+
+Open a sql shell running against a cockroach database.
+
+Usage:
+  cockroach sql [options] [flags]
+
+Flags:
+      --cert-principal-map strings   
+                                      A comma separated list of <cert-principal>:<db-principal> mappings. This
+                                      allows mapping the principal in a cert to a DB principal such as "node" or
+                                      "root" or any SQL user. This is intended for use in situations where the
+                                      certificate management system places restrictions on the Subject.CommonName or
+                                      SubjectAlternateName fields in the certificate (e.g. disallowing a CommonName
+                                      such as "node" or "root"). If multiple mappings are provided for the same
+                                      <cert-principal>, the last one specified in the list takes precedence. A
+                                      principal not specified in the map is passed through as-is via the identity
+                                      function. A cert is allowed to authenticate a DB principal if the DB principal
+                                      name is contained in the mapped CommonName or DNS-type SubjectAlternateName
+                                      fields. It is permissible for the <cert-principal> string to contain colons.
+                                     
+      --certs-dir string             
+                                      Path to the directory containing SSL certificates and keys.
+                                      Environment variable: COCKROACH_CERTS_DIR
+                                      (default "/home/vscode/.cockroach-certs")
+  -d, --database string              
+                                      The name of the database to connect to.
+                                      Environment variable: COCKROACH_DATABASE
+                                     
+      --debug-sql-cli                
+                                      Simplify the SQL CLI to ease troubleshooting of CockroachDB issues. This
+                                      echoes sent SQL, removes the database name and txn status from the prompt, and
+                                      forces behavior to become independent on current transaction state. Equivalent
+                                      to --echo-sql, \unset check_syntax and \set prompt1 %n@%M>.
+                                     
+      --echo-sql                     
+                                      Reveal the SQL statements sent implicitly by the command-line utility.
+                                     
+      --embedded                     
+                                      Simplify and reduce the SQL CLI output to make it appropriate for embedding in
+                                      a 'playground'-type environment.  This causes the shell to omit informational
+                                      message about aspects that can only be changed with command-line flags or
+                                      environment variables: in an embedded environment, the user has no control
+                                      over these and the messages would thus be confusing.  It also causes the shell
+                                      to omit informational messages about networking details (e.g. server address),
+                                      as it is assumed that the embedding environment will report those instead.
+                                     
+  -e, --execute <stmtlist>           
+                                      Execute the SQL statement(s) on the command line, then exit. This flag may
+                                      be specified multiple times and each value may contain multiple semicolon
+                                      separated statements. If an error occurs in any statement, the command exits
+                                      with a non-zero status code and further statements are not executed. The
+                                      results of each SQL statement are printed on the standard output.  This flag
+                                      is incompatible with --file / -f.
+                                     
+  -f, --file string                  
+                                      Read and execute the SQL statement(s) from the specified file. The file is
+                                      processed as if it has been redirected on the standard input of the shell. 
+                                      This flag is incompatible with --execute / -e.
+                                     
+      --format string                
+                                      Selects how to display table rows in results. Possible values: tsv, csv,
+                                      table, records, ndjson, json, sql, html, raw. If left unspecified, defaults to
+                                      tsv for non-interactive sessions and table for interactive sessions.
+                                      (default "tsv")
+  -h, --help                         help for sql
+      --insecure                     
+                                      Connect to a cluster without using TLS nor authentication. This makes the
+                                      client-server connection vulnerable to MITM attacks. Use with care.
+                                      Environment variable: COCKROACH_INSECURE
+                                     
+      --no-line-editor               
+                                      Force disable the interactive line editor. Can help during testing.
+                                     
+      --read-only                    
+                                      Set the session variable default_transaction_read_only to on.
+                                     
+      --safe-updates                 
+                                      Disable SQL statements that may have undesired side effects. For example a
+                                      DELETE or UPDATE without a WHERE clause. By default, this setting is enabled
+                                      (true) and such statements are rejected to prevent accidents. This can also be
+                                      overridden in a session with SET sql_safe_updates = FALSE.
+                                      (default <unspecified>)
+      --set <stmtlist>               
+                                      Set a client-side configuration parameter before running the SQL shell. This
+                                      flag may be specified multiple times.
+                                     
+      --url <postgres://...>         
+                                      Connection URL, of the form:
+                                         postgresql://[user[:passwd]@]host[:port]/[db][?parameters...]
+                                      For example, postgresql://myuser@localhost:26257/mydb.
+                                     
+                                      If left empty, the discrete connection flags are used: host, port, user,
+                                      database, insecure, certs-dir.
+                                      Environment variable: COCKROACH_URL
+                                     
+  -u, --user string                  
+                                      Database user name.
+                                      Environment variable: COCKROACH_USER
+                                      (default "root")
+      --watch duration               
+                                      Repeat the SQL statement(s) specified with --execute with the specified
+                                      period. The client will stop watching if an execution of the SQL statement(s)
+                                      fail.
+
+Global Flags:
+      --enterprise-require-fips-ready      abort if FIPS readiness checks fail
+      --log <string>                       
+                                            Logging configuration, expressed using YAML syntax. For example, you can
+                                            change the default logging directory with: --log='file-defaults: {dir: ...}'.
+                                            See the documentation for more options and details.  To preview how the log
+                                            configuration is applied, or preview the default configuration, you can use
+                                            the 'cockroach debug check-log-config' sub-command.
+                                           
+      --log-config-file <file>             
+                                            File name to read the logging configuration from. This has the same effect as
+                                            passing the content of the file via the --log flag.
+                                            (default <unset>)
+      --log-config-vars strings            
+                                            Environment variables that will be expanded if present in the body of the
+                                            logging configuration.
+                                           
+      --log-dir <string>                   
+                                            --log-dir=XXX is an alias for --log='file-defaults: {dir: XXX}'.
+                                           
+      --logtostderr <severity>[=DEFAULT]   
+                                            --logtostderr=XXX is an alias for --log='sinks: {stderr: {filter: XXX}}'. If
+                                            no value is specified, the default value for the command is inferred: INFO for
+                                            server commands, WARNING for client commands.
+                                            (default UNKNOWN)
+      --redactable-logs                    
+                                            --redactable-logs=XXX is an alias for --log='file-defaults: {redactable:
+                                            XXX}}'.
+                                           
+      --vmodule moduleSpec                 comma-separated list of pattern=N settings for file-filtered logging (significantly hurts performance)

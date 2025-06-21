@@ -2,3 +2,5 @@
 init.log
 placeholder-lambda/bootstrap
 tfplan
+cockroach-v*
+*.sql

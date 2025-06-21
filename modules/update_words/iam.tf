@@ -34,8 +34,9 @@ resource "aws_iam_policy" "update_words_queue" {
 
 resource "aws_iam_role_policy_attachment" "update_words" {
   for_each = {
-    update_words_queue = aws_iam_policy.update_words_queue.arn
-    basic_logging      = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+    update_words_queue    = aws_iam_policy.update_words_queue.arn
+    word_attributes_table = var.word_attributes_table_policy_arn
+    basic_logging         = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   }
 
   role       = aws_iam_role.update_words.name

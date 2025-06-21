@@ -44,16 +44,18 @@ module "process_source_chunk" {
 }
 
 module "query_words" {
-  source                   = "./modules/query_words"
-  project                  = var.project
-  environment              = var.environment
-  region                   = var.region
-  batches_table_name       = aws_dynamodb_table.batches.name
-  batches_table_policy_arn = aws_iam_policy.batches_table.arn
-  prompts_table_name       = aws_dynamodb_table.prompts.name
-  prompts_table_policy_arn = aws_iam_policy.prompts_table.arn
-  openai_api_key           = var.openai_api_key
-  openai_model_name        = var.openai_model_name
+  source                           = "./modules/query_words"
+  project                          = var.project
+  environment                      = var.environment
+  region                           = var.region
+  batches_table_name               = aws_dynamodb_table.batches.name
+  batches_table_policy_arn         = aws_iam_policy.batches_table.arn
+  prompts_table_name               = aws_dynamodb_table.prompts.name
+  prompts_table_policy_arn         = aws_iam_policy.prompts_table.arn
+  openai_api_key                   = var.openai_api_key
+  openai_model_name                = var.openai_model_name
+  word_attributes_table_name       = aws_dynamodb_table.word_attributes.name
+  word_attributes_table_policy_arn = aws_iam_policy.word_attributes_table.arn
 }
 
 module "check_batches" {
@@ -89,9 +91,11 @@ module "update_batch" {
 }
 
 module "update_words" {
-  source               = "./modules/update_words"
-  project              = var.project
-  environment          = var.environment
-  region               = var.region
-  db_connection_string = data.cockroach_connection_string.app_user.connection_string
+  source                           = "./modules/update_words"
+  project                          = var.project
+  environment                      = var.environment
+  region                           = var.region
+  db_connection_string             = data.cockroach_connection_string.app_user.connection_string
+  word_attributes_table_name       = aws_dynamodb_table.word_attributes.name
+  word_attributes_table_policy_arn = aws_iam_policy.word_attributes_table.arn
 }

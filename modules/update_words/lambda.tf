@@ -10,7 +10,8 @@ resource "aws_lambda_function" "update_words" {
 
   environment {
     variables = {
-      DB_CONNECTION_STRING = var.db_connection_string
+      DB_CONNECTION_STRING       = var.db_connection_string
+      WORD_ATTRIBUTES_TABLE_NAME = var.word_attributes_table_name
     }
   }
 }

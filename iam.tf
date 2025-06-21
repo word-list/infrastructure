@@ -99,6 +99,28 @@ resource "aws_iam_policy" "prompts_table" {
   EOF
 }
 
+resource "aws_iam_policy" "word_attributes_table" {
+  name = "${var.project}-${var.environment}-word-attributes-table-policy"
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [          
+          "dynamodb:GetItem",          
+          "dynamodb:BatchGetItem",          
+          "dynamodb:Scan",
+          "dynamodb:Query"
+        ],
+        "Resource": "${aws_dynamodb_table.word_attributes.arn}"
+      }
+    ]
+  }
+  EOF
+}
+
 resource "aws_iam_policy" "deployment_artifacts_bucket" {
   name = "${var.project}-${var.environment}-deployment-artifacts-bucket-policy"
 
