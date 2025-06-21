@@ -104,7 +104,7 @@ resource "local_file" "word_attributes" {
 
 resource "null_resource" "load_word_attributes" {
   triggers = {
-    file_sha = filesha256(local_file.word_attributes.content)
+    file_sha = sha256(local_file.word_attributes.content)
   }
 
   provisioner "local-exec" {
