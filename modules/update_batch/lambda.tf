@@ -9,11 +9,12 @@ resource "aws_lambda_function" "update_batch" {
   timeout          = 60
   environment {
     variables = {
-      BATCHES_TABLE_NAME     = var.batches_table_name
-      PROMPTS_TABLE_NAME     = var.prompts_table_name
-      OPENAI_API_KEY         = var.openai_api_key
-      UPDATE_WORDS_QUEUE_URL = var.update_words_queue_url
-      QUERY_WORDS_QUEUE_URL  = var.query_words_queue_url
+      BATCHES_TABLE_NAME         = var.batches_table_name
+      PROMPTS_TABLE_NAME         = var.prompts_table_name
+      OPENAI_API_KEY             = var.openai_api_key
+      UPDATE_WORDS_QUEUE_URL     = var.update_words_queue_url
+      QUERY_WORDS_QUEUE_URL      = var.query_words_queue_url
+      WORD_ATTRIBUTES_TABLE_NAME = var.word_attributes_table_name
     }
   }
 }

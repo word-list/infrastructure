@@ -75,19 +75,21 @@ module "check_batches" {
 }
 
 module "update_batch" {
-  source                        = "./modules/update_batch"
-  project                       = var.project
-  environment                   = var.environment
-  region                        = var.region
-  batches_table_name            = aws_dynamodb_table.batches.name
-  batches_table_policy_arn      = aws_iam_policy.batches_table.arn
-  prompts_table_name            = aws_dynamodb_table.prompts.name
-  prompts_table_policy_arn      = aws_iam_policy.prompts_table.arn
-  openai_api_key                = var.openai_api_key
-  update_words_queue_url        = module.update_words.update_words_queue_url
-  update_words_queue_policy_arn = module.update_words.update_words_queue_policy_arn
-  query_words_queue_url         = module.query_words.query_words_queue_url
-  query_words_queue_policy_arn  = module.query_words.query_words_queue_policy_arn
+  source                           = "./modules/update_batch"
+  project                          = var.project
+  environment                      = var.environment
+  region                           = var.region
+  batches_table_name               = aws_dynamodb_table.batches.name
+  batches_table_policy_arn         = aws_iam_policy.batches_table.arn
+  prompts_table_name               = aws_dynamodb_table.prompts.name
+  prompts_table_policy_arn         = aws_iam_policy.prompts_table.arn
+  openai_api_key                   = var.openai_api_key
+  update_words_queue_url           = module.update_words.update_words_queue_url
+  update_words_queue_policy_arn    = module.update_words.update_words_queue_policy_arn
+  query_words_queue_url            = module.query_words.query_words_queue_url
+  query_words_queue_policy_arn     = module.query_words.query_words_queue_policy_arn
+  word_attributes_table_name       = aws_dynamodb_table.word_attributes.name
+  word_attributes_table_policy_arn = aws_iam_policy.word_attributes_table.arn
 }
 
 module "update_words" {

@@ -45,3 +45,11 @@ variable "query_words_queue_url" {
 variable "query_words_queue_policy_arn" {
   type = string
 }
+
+variable "word_attributes_table_name" {
+  type = string
+}
+
+variable "word_attributes_table_policy_arn" {
+  type = string
+}
