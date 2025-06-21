@@ -84,7 +84,7 @@ resource "aws_dynamodb_table" "word_attributes" {
 
 resource "local_file" "word_attributes" {
   content = jsonencode({
-    word_attributes = [
+    (aws_dynamodb_table.word_attributes.name) = [
       for attr in var.word_attributes : {
         PutRequest = {
           Item = {
@@ -100,7 +100,7 @@ resource "local_file" "word_attributes" {
   filename = "${path.module}/word_attributes.json"
 }
 
-resource "null_resource" "seed_dynamodb" {
+resource "null_resource" "load_word_attributes" {
   provisioner "local-exec" {
     command = "aws dynamodb batch-write-item --request-items file://word_attributes.json --region ${var.region}"
   }
