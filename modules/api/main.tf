@@ -36,4 +36,6 @@ module "api_attributes" {
   api_id                                 = aws_apigatewayv2_api.wordlist.id
   authorizer_id                          = aws_apigatewayv2_authorizer.cognito_auth.id
   db_connection_string                   = var.db_connection_string
+  word_attributes_table_name             = var.word_attributes_table_name
+  word_attributes_table_policy_arn       = var.word_attributes_table_policy_arn
 }

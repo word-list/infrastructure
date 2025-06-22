@@ -1,14 +1,16 @@
 resource "aws_lambda_function" "api_attributes" {
   function_name    = "${var.project}-${var.environment}-api-attributes"
-  handler          = "bootstrap"
-  runtime          = "provided.al2023"
+  handler          = "WordList.Api.Attributes"
+  runtime          = "dotnet8"
   role             = aws_iam_role.api_attributes.arn
+  architectures    = ["arm64"]
   filename         = "placeholder.zip"
   source_code_hash = filebase64sha256("placeholder.zip")
-  architectures    = ["arm64"]
+  timeout          = 60
   environment {
     variables = {
-      DB_CONNECTION_STRING = var.db_connection_string
+      DB_CONNECTION_STRING       = var.db_connection_string
+      WORD_ATTRIBUTES_TABLE_NAME = var.word_attributes_table_name
     }
   }
 }

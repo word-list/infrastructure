@@ -9,6 +9,8 @@ module "api" {
   deployment_artifacts_bucket_policy_arn = aws_iam_policy.deployment_artifacts_bucket.arn
   db_connection_string                   = data.cockroach_connection_string.app_user.connection_string
   wordlist_certificate_arn               = aws_acm_certificate.wordlist.arn
+  word_attributes_table_name             = aws_dynamodb_table.word_attributes.name
+  word_attributes_table_policy_arn       = aws_iam_policy.word_attributes_table.arn
 
   depends_on = [aws_acm_certificate_validation.wordlist_cert]
 }

@@ -37,6 +37,14 @@ variable "wordlist_certificate_arn" {
   type = string
 }
 
+variable "word_attributes_table_name" {
+  type = string
+}
+
+variable "word_attributes_table_policy_arn" {
+  type = string
+}
+
 locals {
   base_domain = var.domain
   subdomain   = var.environment == "production" ? local.base_domain : "${var.environment}.${local.base_domain}"

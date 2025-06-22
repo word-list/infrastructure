@@ -26,3 +26,8 @@ resource "aws_iam_role_policy_attachment" "api_attributes_basic_logging" {
   role       = aws_iam_role.api_attributes.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
+
+resource "aws_iam_role_policy_attachment" "word_attributes_table" {
+  role       = aws_iam_role.api_attributes.name
+  policy_arn = var.word_attributes_table_policy_arn
+}
