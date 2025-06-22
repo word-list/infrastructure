@@ -9,7 +9,8 @@ resource "aws_lambda_function" "api_words" {
   timeout          = 60
   environment {
     variables = {
-      DB_CONNECTION_STRING = var.db_connection_string
+      DB_CONNECTION_STRING       = var.db_connection_string
+      WORD_ATTRIBUTES_TABLE_NAME = var.word_attributes_table_name
     }
   }
 }
