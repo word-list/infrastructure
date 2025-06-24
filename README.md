@@ -26,6 +26,7 @@ flowchart LR;
 
         api_words[[api-words]]
         api_sources[[api-sources]]    
+        api_attributes[[api-attributes]]
 
         upload_source_chunks[[upload-source-chunks]]    
         process_source_chunk[[process-source-chunk]]
@@ -47,6 +48,7 @@ flowchart LR;
         sources_table[(sources-table)]
         batches_table[(batches-table)]
         prompts_table[(prompts-table)]
+        attributes_table[(attributes-table)]
         
         route_53 --> certificate --> cloudfront
         
@@ -57,6 +59,7 @@ flowchart LR;
             --> api_gateway
             --> api_words  
         api_gateway --> api_sources
+        api_gateway --> api_attributes
 
         upload_source_chunks 
             -..-> process_source_chunk_queue 
@@ -71,6 +74,11 @@ flowchart LR;
 
         sources_table <--> api_sources
         sources_table --> upload_source_chunks
+
+        attributes_table --> api_attributes
+        attributes_table --> api_words
+        attributes_table --> query_words
+        attributes_table --> update_words
 
         query_words --> batches_table
         query_words --> prompts_table
