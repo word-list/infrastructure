@@ -58,6 +58,10 @@ resource "local_file" "words_table" {
 }
 
 resource "null_resource" "apply_words_schema" {
+  triggers = {
+    file_sha = sha256(local_file.words_table.content)
+  }
+
   provisioner "local-exec" {
     command = <<EOT
 psql \
