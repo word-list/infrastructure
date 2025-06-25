@@ -67,6 +67,14 @@ locals {
       prompt      = "An integer from $MIN to $MAX measuring the degree to which a word explicitly pertains to political ideologies, entities, debates, or policies. A score of $MAX indicates strong and consistent presence in political contexts; $MIN indicates no discernible political relevance."
       min         = 0
       max         = 5
+    },
+    {
+      name        = "nsfw"
+      description = "Whether the word is inappropriate or unsuitable for use in professional or workplace settings"
+      display     = "NSFW"
+      prompt      = "An integer from $MIN to $MAX representing the degree to which the word is not safe for work (NSFW). A score of $MAX indicates the word is highly inappropriate for workplace use, including profanity, explicit or sexual language, offensive slang, or suggestive content. A score of $MIN means the word is fully safe for professional environments."
+      min         = 0
+      max         = 1
     }
   ]
 }
