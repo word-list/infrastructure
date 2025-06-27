@@ -24,6 +24,32 @@ resource "aws_dynamodb_table" "source_chunks" {
   }
 }
 
+resource "aws_dynamodb_table" "source_update_status" {
+  name           = "${var.project}-${var.environment}-source-update-status-table"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 1
+  write_capacity = 1
+  hash_key       = "id"
+
+  attribute {
+    name = "id"
+    type = "S"
+  }
+
+  attribute {
+    name = "status"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "StatusIndex"
+    hash_key        = "status"
+    projection_type = "ALL"
+    read_capacity   = 1
+    write_capacity  = 1
+  }
+}
+
 resource "aws_dynamodb_table" "batches" {
   name           = "${var.project}-${var.environment}-batches-table"
   billing_mode   = "PROVISIONED"

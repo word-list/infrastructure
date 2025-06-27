@@ -45,3 +45,12 @@ variable "source_chunks_bucket_policy_arn" {
 variable "process_source_chunk_queue_url" {
   type = string
 }
+
+variable "source_update_status_table_name" {
+  type = string
+}
+
+variable "source_update_status_table_policy_arn" {
+  type = string
+}
+

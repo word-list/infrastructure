@@ -9,11 +9,12 @@ resource "aws_lambda_function" "process_source_chunk" {
   timeout          = 60
   environment {
     variables = {
-      SOURCE_CHUNKS_TABLE_NAME     = var.source_chunks_table_name
-      SOURCE_CHUNKS_BUCKET_NAME    = var.source_chunks_bucket_name
-      QUERY_WORDS_QUEUE_URL        = var.query_words_queue_url
-      DEBUG_OUTGOING_MESSAGE_LIMIT = "5"
-      DB_CONNECTION_STRING         = var.db_connection_string
+      SOURCE_CHUNKS_TABLE_NAME        = var.source_chunks_table_name
+      SOURCE_CHUNKS_BUCKET_NAME       = var.source_chunks_bucket_name
+      QUERY_WORDS_QUEUE_URL           = var.query_words_queue_url
+      DEBUG_OUTGOING_MESSAGE_LIMIT    = "5"
+      DB_CONNECTION_STRING            = var.db_connection_string
+      SOURCE_UPDATE_STATUS_TABLE_NAME = var.source_update_status_table_name
     }
   }
 }

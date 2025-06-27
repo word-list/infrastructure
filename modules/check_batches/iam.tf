@@ -19,10 +19,11 @@ resource "aws_iam_role" "check_batches" {
 
 resource "aws_iam_role_policy_attachment" "check_batches" {
   for_each = {
-    batches_table      = var.batches_table_policy_arn
-    prompts_table      = var.prompts_table_policy_arn
-    update_batch_queue = var.update_batch_queue_policy_arn
-    basic_logging      = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+    batches_table              = var.batches_table_policy_arn
+    prompts_table              = var.prompts_table_policy_arn
+    update_batch_queue         = var.update_batch_queue_policy_arn
+    source_update_status_table = var.source_update_status_table_policy_arn
+    basic_logging              = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   }
 
   role       = aws_iam_role.check_batches.name

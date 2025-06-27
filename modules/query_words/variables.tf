@@ -41,3 +41,11 @@ variable "word_attributes_table_name" {
 variable "word_attributes_table_policy_arn" {
   type = string
 }
+variable "source_update_status_table_name" {
+  type = string
+}
+
+variable "source_update_status_table_policy_arn" {
+  type = string
+}
+

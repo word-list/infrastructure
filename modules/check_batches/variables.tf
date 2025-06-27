@@ -45,3 +45,12 @@ variable "update_batch_queue_url" {
 variable "update_batch_queue_policy_arn" {
   type = string
 }
+
+variable "source_update_status_table_name" {
+  type = string
+}
+
+variable "source_update_status_table_policy_arn" {
+  type = string
+}
+

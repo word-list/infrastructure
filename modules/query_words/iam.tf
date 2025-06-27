@@ -34,11 +34,12 @@ resource "aws_iam_policy" "query_words_queue" {
 
 resource "aws_iam_role_policy_attachment" "query_words" {
   for_each = {
-    query_words_queue     = aws_iam_policy.query_words_queue.arn
-    batches_table         = var.batches_table_policy_arn
-    prompts_table         = var.prompts_table_policy_arn
-    word_attributes_table = var.word_attributes_table_policy_arn
-    basic_logging         = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+    query_words_queue          = aws_iam_policy.query_words_queue.arn
+    batches_table              = var.batches_table_policy_arn
+    prompts_table              = var.prompts_table_policy_arn
+    word_attributes_table      = var.word_attributes_table_policy_arn
+    source_update_status_table = var.source_update_status_table_policy_arn
+    basic_logging              = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   }
 
   role       = aws_iam_role.query_words.name

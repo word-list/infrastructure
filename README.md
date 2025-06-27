@@ -11,10 +11,10 @@ flowchart LR;
     subgraph Cloudflare
         dns[Domain NS Records]
     end
-    subgraph CockroachDB 
+    subgraph CockroachDB
         words_db[(words db)]
     end
-    subgraph GitHub 
+    subgraph GitHub
         deployments[[lib-sql workflow]] ==> words_db
     end
     subgraph AWS
@@ -25,10 +25,10 @@ flowchart LR;
         certificate[ACM Certificate]
 
         api_words[[api-words]]
-        api_sources[[api-sources]]    
+        api_sources[[api-sources]]
         api_attributes[[api-attributes]]
 
-        upload_source_chunks[[upload-source-chunks]]    
+        upload_source_chunks[[upload-source-chunks]]
         process_source_chunk[[process-source-chunk]]
         query_words[[query-words]]
 
@@ -38,39 +38,42 @@ flowchart LR;
 
         chunk_bucket@{shape: lin-cyl, label: "chunk-bucket"}
         frontend_bucket@{shape: lin-cyl, label: "frontend-bucket"}
-        artifact_bucket@{shape: lin-cyl, label: "deployment-artifacts"}        
+        artifact_bucket@{shape: lin-cyl, label: "deployment-artifacts"}
 
         process_source_chunk_queue@{shape: paper-tape, label: "process-source-chunk-queue"}
         query_words_queue@{shape: paper-tape, label: "query-words-queue"}
         update_batch_queue@{shape: paper-tape, label: "update-batch-queue"}
-        update_words_queue@{shape: paper-tape, label: "update-words-queue"}        
+        update_words_queue@{shape: paper-tape, label: "update-words-queue"}
 
         sources_table[(sources-table)]
         batches_table[(batches-table)]
         prompts_table[(prompts-table)]
         attributes_table[(attributes-table)]
-        
+        source_update_status_table[(source-update-status-table)]
+
         route_53 --> certificate --> cloudfront
-        
-        frontend_bucket --> cloudfront 
-        route_53 -- via update script --> dns        
-                
+
+        frontend_bucket --> cloudfront
+        route_53 -- via update script --> dns
+
         cloudfront
             --> api_gateway
-            --> api_words  
+            --> api_words
         api_gateway --> api_sources
         api_gateway --> api_attributes
 
-        upload_source_chunks 
-            -..-> process_source_chunk_queue 
+        upload_source_chunks
+            -..-> process_source_chunk_queue
             -..-> process_source_chunk
             -..-> query_words_queue
             -..-> query_words
 
         upload_source_chunks --> chunk_bucket --> process_source_chunk
+        upload_source_chunks --> source_update_status_table
+        process_source_chunk --> source_update_status_table
 
         words_db --> api_words
-        words_db --> query_words         
+        words_db --> query_words
 
         sources_table <--> api_sources
         sources_table --> upload_source_chunks
@@ -82,15 +85,19 @@ flowchart LR;
 
         query_words --> batches_table
         query_words --> prompts_table
+        query_words --> source_update_status_table
 
-        batches_table 
-            --> check_batches 
+        batches_table
+            --> check_batches
             -..-> update_batch_queue
             -..-> update_batch
             -..-> update_words_queue
             -..-> update_words --> words_db
 
         update_batch -..-> query_words_queue
+        update_batch  --> source_update_status_table
+        update_words --> source_update_status_table
+
         prompts_table --> update_batch
 
         artifact_bucket -..-> upload_source_chunks

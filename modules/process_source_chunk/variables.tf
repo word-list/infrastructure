@@ -38,3 +38,12 @@ variable "db_connection_string" {
   type      = string
   sensitive = true
 }
+
+variable "source_update_status_table_name" {
+  type = string
+}
+
+variable "source_update_status_table_policy_arn" {
+  type = string
+}
+

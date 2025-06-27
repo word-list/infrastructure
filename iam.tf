@@ -22,6 +22,30 @@ resource "aws_iam_policy" "sources_table" {
   EOF
 }
 
+resource "aws_iam_policy" "source_update_status_table" {
+  name = "${var.project}-${var.environment}-source-update-status-table-policy"
+
+  policy = <<EOF
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "dynamodb:PutItem",
+          "dynamodb:GetItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:Scan"
+        ],
+        "Resource": "${aws_dynamodb_table.source_update_status.arn}"
+      }
+    ]
+  }
+  EOF
+}
+
+
 resource "aws_iam_policy" "source_chunks_table" {
   name = "${var.project}-${var.environment}-source-chunks-table-policy"
 

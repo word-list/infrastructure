@@ -24,6 +24,7 @@ resource "aws_iam_role_policy_attachment" "upload_source_chunks" {
     process_source_chunks_queue = var.process_source_chunks_queue_policy_arn
     deployment_artifacts_bucket = var.deployment_artifacts_bucket_policy_arn
     source_chunks_bucket        = var.source_chunks_bucket_policy_arn
+    source_update_status_table  = var.source_update_status_table_policy_arn
     basic_logging               = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   }
 
