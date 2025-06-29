@@ -20,7 +20,7 @@ resource "aws_lambda_function" "update_words" {
 resource "aws_lambda_event_source_mapping" "update_words_sqs_trigger" {
   event_source_arn                   = aws_sqs_queue.update_words.arn
   function_name                      = aws_lambda_function.update_words.arn
-  batch_size                         = 1
+  batch_size                         = 1000
   maximum_batching_window_in_seconds = 60
 
   scaling_config {
