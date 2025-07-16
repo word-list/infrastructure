@@ -76,7 +76,4 @@ jobs:
                 ZONE_ID: ${{ secrets.ZONE_ID }}
                 DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}                
               run: ./update-dns.sh
-
-            - name: Update Connection String
-              run: ./update-lib-sql-connection-string.sh
               
